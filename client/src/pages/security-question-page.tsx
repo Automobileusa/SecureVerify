@@ -8,7 +8,7 @@ import { Input } from "@/components/ui/input";
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import { Alert, AlertDescription } from "@/components/ui/alert";
 import { securityQuestionSchema, type SecurityQuestionData } from "@shared/schema";
-import { apiRequest } from "@/lib/queryClient";
+import { apiRequest, queryClient } from "@/lib/queryClient";
 import { useAuth } from "@/hooks/use-auth";
 import { Loader2, AlertCircle, ArrowLeft, Shield } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
@@ -54,6 +54,8 @@ export default function SecurityQuestionPage() {
         title: "Security verification successful",
         description: "Welcome to your online banking dashboard.",
       });
+      // Invalidate security status cache and redirect to dashboard
+      queryClient.invalidateQueries({ queryKey: ["/api/security-status"] });
       setLocation("/");
     } catch (err: any) {
       setError("Incorrect answer. Please try again.");

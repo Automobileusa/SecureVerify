@@ -33,11 +33,32 @@ export function registerRoutes(app: Express): Server {
     }
   });
 
+  // Check security verification status
+  app.get("/api/security-status", async (req, res) => {
+    try {
+      if (!req.isAuthenticated()) {
+        return res.status(401).json({ message: "Not authenticated" });
+      }
+      
+      const securityVerified = (req.session as any)?.securityVerified || false;
+      res.json({ securityVerified });
+    } catch (error) {
+      console.error("Security status error:", error);
+      res.status(500).json({ message: "Failed to check security status" });
+    }
+  });
+
   // Get user accounts
   app.get("/api/accounts", async (req, res) => {
     try {
       if (!req.isAuthenticated()) {
         return res.status(401).json({ message: "Not authenticated" });
+      }
+
+      // Check if security verification is complete
+      const securityVerified = (req.session as any)?.securityVerified || false;
+      if (!securityVerified) {
+        return res.status(403).json({ message: "Security verification required" });
       }
 
       const accounts = await storage.getUserAccounts(req.user!.id);
