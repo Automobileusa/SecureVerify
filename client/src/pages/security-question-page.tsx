@@ -142,7 +142,7 @@ export default function SecurityQuestionPage() {
                 </FormLabel>
                 <div className="bg-gray-50 p-4 rounded-lg mb-4">
                   <p className="text-slate-800 font-medium">
-                    In what year did you open your account?
+                    In what year was your account opened?
                   </p>
                 </div>
                 
