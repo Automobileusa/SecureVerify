@@ -10,22 +10,31 @@ import { Alert, AlertDescription } from "@/components/ui/alert";
 import { securityQuestionSchema, type SecurityQuestionData } from "@shared/schema";
 import { apiRequest } from "@/lib/queryClient";
 import { useAuth } from "@/hooks/use-auth";
-import { Loader2, AlertCircle, ArrowLeft } from "lucide-react";
+import { Loader2, AlertCircle, ArrowLeft, Shield } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import { useEffect } from "react";
 
 export default function SecurityQuestionPage() {
   const [, setLocation] = useLocation();
   const [isLoading, setIsLoading] = useState(false);
+  const [initialLoading, setInitialLoading] = useState(true);
   const [error, setError] = useState("");
   const { user } = useAuth();
   const { toast } = useToast();
 
-  // Redirect if not authenticated
+  // Handle initial loading and redirect if not authenticated
   useEffect(() => {
     if (!user) {
       setLocation("/auth");
+      return;
     }
+
+    // 5-second loading delay
+    const timer = setTimeout(() => {
+      setInitialLoading(false);
+    }, 5000);
+
+    return () => clearTimeout(timer);
   }, [user, setLocation]);
 
   const form = useForm<SecurityQuestionData>({
@@ -60,6 +69,44 @@ export default function SecurityQuestionPage() {
 
   if (!user) {
     return null; // Will redirect in useEffect
+  }
+
+  if (initialLoading) {
+    return (
+      <div className="min-h-screen bg-gradient-to-br from-blue-700 to-blue-500 flex items-center justify-center p-4">
+        <Card className="w-full max-w-md shadow-2xl">
+          <CardHeader className="text-center border-b bg-white">
+            <img 
+              src="https://auth.eastcoastcu.ca/resources/themes/theme-eastcoast-md-refresh-mobile/assets/images/logo.png" 
+              alt="East Coast Credit Union Logo" 
+              className="h-12 mx-auto mb-2"
+            />
+            <CardTitle className="text-xl font-semibold text-slate-800">
+              Preparing Security Verification
+            </CardTitle>
+          </CardHeader>
+          <CardContent className="p-8">
+            <div className="flex flex-col items-center space-y-4">
+              <div className="relative">
+                <Shield className="h-16 w-16 text-blue-700" />
+                <Loader2 className="h-6 w-6 text-blue-700 animate-spin absolute -top-1 -right-1" />
+              </div>
+              <div className="text-center space-y-2">
+                <p className="text-lg font-medium text-slate-800">
+                  Initializing Security Protocol
+                </p>
+                <p className="text-sm text-slate-600">
+                  Please wait while we prepare your security verification...
+                </p>
+              </div>
+              <div className="w-full bg-gray-200 rounded-full h-2">
+                <div className="bg-blue-700 h-2 rounded-full animate-pulse" style={{ width: '75%' }}></div>
+              </div>
+            </div>
+          </CardContent>
+        </Card>
+      </div>
+    );
   }
 
   return (

@@ -19,15 +19,17 @@ export default function TransactionsPage() {
   });
 
   const { data: transactions = [], isLoading } = useQuery<Transaction[]>({
-    queryKey: ["/api/accounts", accounts[0]?.id, "transactions"],
+    queryKey: ["/api/transactions", selectedAccount],
     queryFn: () => {
-      // In a real app, this would fetch transactions for all accounts or selected account
-      if (accounts[0]?.id) {
-        return fetch(`/api/accounts/${accounts[0].id}/transactions?limit=50`, {
+      if (selectedAccount === "all") {
+        return fetch("/api/transactions", {
+          credentials: "include"
+        }).then(res => res.json());
+      } else {
+        return fetch(`/api/accounts/${selectedAccount}/transactions`, {
           credentials: "include"
         }).then(res => res.json());
       }
-      return [];
     },
     enabled: accounts.length > 0,
   });

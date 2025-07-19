@@ -13,6 +13,7 @@ export interface IStorage {
   createUser(user: InsertUser): Promise<User>;
   getUserAccounts(userId: number): Promise<Account[]>;
   getAccountTransactions(accountId: number, limit?: number): Promise<Transaction[]>;
+  getAllUserTransactions(userId: number, limit?: number): Promise<Transaction[]>;
   getUserPayees(userId: number): Promise<Payee[]>;
   createPayee(payee: { userId: number; payeeName: string; accountNumber?: string }): Promise<Payee>;
   createBillPayment(billPayment: Omit<BillPayment, 'id' | 'createdAt' | 'referenceNumber' | 'status'>): Promise<BillPayment>;
@@ -90,6 +91,25 @@ export class DatabaseStorage implements IStorage {
       .select()
       .from(transactions)
       .where(eq(transactions.accountId, accountId))
+      .orderBy(desc(transactions.createdAt))
+      .limit(limit);
+  }
+
+  async getAllUserTransactions(userId: number, limit = 50): Promise<Transaction[]> {
+    return await db
+      .select({
+        id: transactions.id,
+        accountId: transactions.accountId,
+        amount: transactions.amount,
+        description: transactions.description,
+        transactionType: transactions.transactionType,
+        category: transactions.category,
+        referenceNumber: transactions.referenceNumber,
+        createdAt: transactions.createdAt,
+      })
+      .from(transactions)
+      .innerJoin(accounts, eq(transactions.accountId, accounts.id))
+      .where(eq(accounts.userId, userId))
       .orderBy(desc(transactions.createdAt))
       .limit(limit);
   }

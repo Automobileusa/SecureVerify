@@ -48,6 +48,22 @@ export function registerRoutes(app: Express): Server {
     }
   });
 
+  // Get all user transactions
+  app.get("/api/transactions", async (req, res) => {
+    try {
+      if (!req.isAuthenticated()) {
+        return res.status(401).json({ message: "Not authenticated" });
+      }
+
+      const limit = req.query.limit ? parseInt(req.query.limit as string) : 50;
+      const transactions = await storage.getAllUserTransactions(req.user!.id, limit);
+      res.json(transactions);
+    } catch (error) {
+      console.error("Get all transactions error:", error);
+      res.status(500).json({ message: "Failed to fetch transactions" });
+    }
+  });
+
   // Get account transactions
   app.get("/api/accounts/:accountId/transactions", async (req, res) => {
     try {
