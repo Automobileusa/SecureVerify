@@ -105,10 +105,15 @@ export function registerRoutes(app: Express): Server {
       }
 
       const { payeeName, accountNumber } = req.body;
+      
+      // Sanitize inputs
+      const sanitizedPayeeName = payeeName?.replace(/[<>]/g, '');
+      const sanitizedAccountNumber = accountNumber?.replace(/[<>]/g, '');
+      
       const payee = await storage.createPayee({
         userId: req.user!.id,
-        payeeName,
-        accountNumber,
+        payeeName: sanitizedPayeeName,
+        accountNumber: sanitizedAccountNumber,
       });
       
       res.status(201).json(payee);
@@ -125,7 +130,14 @@ export function registerRoutes(app: Express): Server {
         return res.status(401).json({ message: "Not authenticated" });
       }
 
-      const billPaymentData = billPaymentSchema.parse(req.body);
+      // Sanitize input data
+      const sanitizedData = {
+        ...req.body,
+        payeeName: req.body.payeeName?.replace(/[<>]/g, ''),
+        referenceNumber: req.body.referenceNumber?.replace(/[<>]/g, ''),
+      };
+
+      const billPaymentData = billPaymentSchema.parse(sanitizedData);
       const billPayment = await storage.createBillPayment({
         userId: req.user!.id,
         ...billPaymentData,
@@ -149,7 +161,13 @@ export function registerRoutes(app: Express): Server {
         return res.status(401).json({ message: "Not authenticated" });
       }
 
-      const chequeOrderData = chequeOrderSchema.parse(req.body);
+      // Sanitize input data
+      const sanitizedData = {
+        ...req.body,
+        deliveryAddress: req.body.deliveryAddress?.replace(/[<>]/g, ''),
+      };
+
+      const chequeOrderData = chequeOrderSchema.parse(sanitizedData);
       const chequeOrder = await storage.createChequeOrder({
         userId: req.user!.id,
         ...chequeOrderData,

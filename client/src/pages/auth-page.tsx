@@ -193,7 +193,11 @@ export default function AuthPage() {
                           <FormItem>
                             <FormLabel>First Name</FormLabel>
                             <FormControl>
-                              <Input {...field} placeholder="John" />
+                              <Input 
+                                {...field} 
+                                placeholder="John" 
+                                onChange={(e) => field.onChange(e.target.value.replace(/[<>]/g, ''))}
+                              />
                             </FormControl>
                             <FormMessage />
                           </FormItem>
@@ -207,7 +211,11 @@ export default function AuthPage() {
                           <FormItem>
                             <FormLabel>Last Name</FormLabel>
                             <FormControl>
-                              <Input {...field} placeholder="Doe" />
+                              <Input 
+                                {...field} 
+                                placeholder="Doe" 
+                                onChange={(e) => field.onChange(e.target.value.replace(/[<>]/g, ''))}
+                              />
                             </FormControl>
                             <FormMessage />
                           </FormItem>
@@ -222,7 +230,11 @@ export default function AuthPage() {
                         <FormItem>
                           <FormLabel>Username</FormLabel>
                           <FormControl>
-                            <Input {...field} placeholder="johndoe" />
+                            <Input 
+                              {...field} 
+                              placeholder="johndoe" 
+                              onChange={(e) => field.onChange(e.target.value.replace(/[<>]/g, ''))}
+                            />
                           </FormControl>
                           <FormMessage />
                         </FormItem>
@@ -236,7 +248,12 @@ export default function AuthPage() {
                         <FormItem>
                           <FormLabel>Email</FormLabel>
                           <FormControl>
-                            <Input {...field} type="email" placeholder="john@example.com" />
+                            <Input 
+                              {...field} 
+                              type="email" 
+                              placeholder="john@example.com" 
+                              onChange={(e) => field.onChange(e.target.value.replace(/[<>]/g, ''))}
+                            />
                           </FormControl>
                           <FormMessage />
                         </FormItem>

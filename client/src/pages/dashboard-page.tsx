@@ -25,10 +25,10 @@ export default function DashboardPage() {
   return (
     <div className="min-h-screen bg-gray-50">
       <Header onMenuClick={() => setSidebarOpen(true)} />
-      
+
       <div className="flex">
         <Sidebar isOpen={sidebarOpen} onClose={() => setSidebarOpen(false)} />
-        
+
         <main className="flex-1 lg:ml-0 min-h-screen">
           <div className="p-6">
             <div className="mb-8">

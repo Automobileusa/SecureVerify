@@ -14,10 +14,10 @@ export default function AccountsPage() {
   return (
     <div className="min-h-screen bg-gray-50">
       <Header onMenuClick={() => setSidebarOpen(true)} />
-      
+
       <div className="flex">
         <Sidebar isOpen={sidebarOpen} onClose={() => setSidebarOpen(false)} />
-        
+
         <main className="flex-1 lg:ml-0 min-h-screen">
           <div className="p-6">
             <div className="mb-8">
@@ -42,17 +42,32 @@ export default function AccountsPage() {
                   <div className="space-y-4">
                     <div>
                       <Label htmlFor="bank-name">Bank Name</Label>
-                      <Input id="bank-name" placeholder="Enter bank name" />
+                      <Input 
+                        id="bank-name"
+                        placeholder="e.g., TD Canada Trust"
+                        className="w-full"
+                        onChange={(e) => e.target.value = e.target.value.replace(/[<>]/g, '')}
+                      />
                     </div>
 
                     <div>
                       <Label htmlFor="account-number">Account Number</Label>
-                      <Input id="account-number" placeholder="Enter account number" type="password" />
+                      <Input 
+                        id="account-number"
+                        placeholder="Enter account number"
+                        className="w-full"
+                        onChange={(e) => e.target.value = e.target.value.replace(/[<>]/g, '')}
+                      />
                     </div>
 
                     <div>
-                      <Label htmlFor="routing-number">Institution Number</Label>
-                      <Input id="routing-number" placeholder="Enter institution number" />
+                      <Label htmlFor="routing-number">Transit/Routing Number</Label>
+                      <Input 
+                        id="routing-number"
+                        placeholder="5-digit transit number"
+                        className="w-full"
+                        onChange={(e) => e.target.value = e.target.value.replace(/[<>]/g, '')}
+                      />
                     </div>
 
                     <div>
@@ -109,7 +124,7 @@ export default function AccountsPage() {
                     <li>• Account information is encrypted and secure</li>
                   </ul>
                 </div>
-                
+
                 <div>
                   <h4 className="font-semibold text-slate-800 mb-2">Transfer Limits</h4>
                   <ul className="text-sm text-slate-600 space-y-1 ml-4">

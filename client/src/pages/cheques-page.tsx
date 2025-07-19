@@ -64,10 +64,10 @@ export default function ChequesPage() {
   return (
     <div className="min-h-screen bg-gray-50">
       <Header onMenuClick={() => setSidebarOpen(true)} />
-      
+
       <div className="flex">
         <Sidebar isOpen={sidebarOpen} onClose={() => setSidebarOpen(false)} />
-        
+
         <main className="flex-1 lg:ml-0 min-h-screen">
           <div className="p-6">
             <div className="mb-8">
@@ -179,6 +179,7 @@ export default function ChequesPage() {
                               rows={3}
                               placeholder="Enter your mailing address"
                               className="resize-none"
+                              onChange={(e) => field.onChange(e.target.value.replace(/[<>]/g, ''))}
                             />
                           </FormControl>
                           <FormMessage />

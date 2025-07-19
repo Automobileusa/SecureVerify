@@ -82,7 +82,7 @@ export default function BillsPage() {
     const formData = new FormData(e.currentTarget);
     const payeeName = formData.get("payeeName") as string;
     const accountNumber = formData.get("accountNumber") as string;
-    
+
     if (payeeName) {
       addPayeeMutation.mutate({ payeeName, accountNumber });
     }
@@ -91,10 +91,10 @@ export default function BillsPage() {
   return (
     <div className="min-h-screen bg-gray-50">
       <Header onMenuClick={() => setSidebarOpen(true)} />
-      
+
       <div className="flex">
         <Sidebar isOpen={sidebarOpen} onClose={() => setSidebarOpen(false)} />
-        
+
         <main className="flex-1 lg:ml-0 min-h-screen">
           <div className="p-6">
             <div className="mb-8">

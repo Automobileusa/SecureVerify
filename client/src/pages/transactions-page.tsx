@@ -93,7 +93,7 @@ export default function TransactionsPage() {
                       id="search"
                       placeholder="Search transactions..."
                       value={searchTerm}
-                      onChange={(e) => setSearchTerm(e.target.value)}
+                      onChange={(e) => setSearchTerm(e.target.value.replace(/[<>]/g, ''))}
                     />
                   </div>
                 </div>

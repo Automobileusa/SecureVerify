@@ -59,13 +59,23 @@ export function setupAuth(app: Express) {
   });
 
   app.post("/api/register", async (req, res, next) => {
-    const existingUser = await storage.getUserByUsername(req.body.username);
+    // Sanitize input data
+    const sanitizedData = {
+      ...req.body,
+      username: req.body.username?.replace(/[<>]/g, ''),
+      firstName: req.body.firstName?.replace(/[<>]/g, ''),
+      lastName: req.body.lastName?.replace(/[<>]/g, ''),
+      email: req.body.email?.replace(/[<>]/g, ''),
+      phone: req.body.phone?.replace(/[<>]/g, ''),
+    };
+
+    const existingUser = await storage.getUserByUsername(sanitizedData.username);
     if (existingUser) {
       return res.status(400).send("Username already exists");
     }
 
     const user = await storage.createUser({
-      ...req.body,
+      ...sanitizedData,
       password: await hashPassword(req.body.password),
     });
 
