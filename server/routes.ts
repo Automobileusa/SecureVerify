@@ -21,7 +21,7 @@ export function registerRoutes(app: Express): Server {
       if (answer === "2013") {
         // Mark user as fully authenticated
         if (req.session) {
-          req.session.securityVerified = true;
+          (req.session as any).securityVerified = true;
         }
         res.json({ success: true });
       } else {

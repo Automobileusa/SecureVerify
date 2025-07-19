@@ -93,7 +93,24 @@ export default function AuthPage() {
               <div className="w-8 h-8 bg-white/20 rounded-full flex items-center justify-center">
                 <span className="text-sm font-bold">✓</span>
               </div>
-              <span className="text-lg">Mobile-friendly design</span>
+              <span className="text-lg">CDIC insured deposits</span>
+            </div>
+          </div>
+          
+          {/* CDIC Footer */}
+          <div className="mt-12 pt-8 border-t border-white/20">
+            <div className="bg-white/10 rounded-lg p-4 backdrop-blur-sm">
+              <div className="flex items-center space-x-3 mb-2">
+                <div className="w-6 h-6 bg-white rounded flex items-center justify-center">
+                  <span className="text-blue-700 text-xs font-bold">CDIC</span>
+                </div>
+                <span className="text-sm font-semibold">Member of Canada Deposit Insurance Corporation</span>
+              </div>
+              <p className="text-xs opacity-90 leading-relaxed">
+                Eligible deposits are protected up to $100,000 per depositor, per insured category, 
+                in the event of a member institution failure. East Coast Credit Union is a member 
+                of the Canada Deposit Insurance Corporation (CDIC).
+              </p>
             </div>
           </div>
         </div>

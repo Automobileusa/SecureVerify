@@ -17,11 +17,11 @@ export interface IStorage {
   createPayee(payee: { userId: number; payeeName: string; accountNumber?: string }): Promise<Payee>;
   createBillPayment(billPayment: Omit<BillPayment, 'id' | 'createdAt' | 'referenceNumber' | 'status'>): Promise<BillPayment>;
   createChequeOrder(chequeOrder: Omit<ChequeOrder, 'id' | 'createdAt' | 'cost' | 'status'>): Promise<ChequeOrder>;
-  sessionStore: session.SessionStore;
+  sessionStore: any;
 }
 
 export class DatabaseStorage implements IStorage {
-  public sessionStore: session.SessionStore;
+  public sessionStore: any;
 
   constructor() {
     this.sessionStore = new PostgresSessionStore({ 
