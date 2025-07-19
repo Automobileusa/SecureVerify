@@ -1,0 +1,144 @@
+But instead of otp smtp can we change it to page to security question and answer page with our src logo header,  Security Question: filed. In what year your account was open; 
+Answer : 2013
+
+If answer ain't match prompt error issue 
+
+
+# East Coast Credit Union Banking Application
+
+## Overview
+
+This is a full-stack Canadian credit union banking application built with React, Express.js, and PostgreSQL. The application provides secure online banking features including account management, transactions, bill payments, cheque ordering, and external account linking. The system has been simplified to work with a single hardcoded user for development purposes.
+
+## User Preferences
+
+Preferred communication style: Simple, everyday language.
+
+## System Architecture
+
+### Frontend Architecture
+
+- **Framework**: React 18 with TypeScript using Vite as the build tool
+- **UI Library**: shadcn/ui components built on top of Radix UI primitives for accessible, customizable components
+- **Styling**: Tailwind CSS with custom CSS variables for theming and East Coast Credit Union branding
+- **State Management**: TanStack Query (React Query) for server state management and caching
+- **Routing**: Wouter for lightweight client-side routing
+- **Forms**: React Hook Form with Zod validation for type-safe form handling
+- **Build Tool**: Vite with hot module replacement and path aliases for development
+
+### Backend Architecture
+
+- **Framework**: Express.js with TypeScript for the REST API server
+- **Authentication**: Express sessions with in-memory storage for development (configured for PostgreSQL in production)
+- **Password Security**: bcrypt for password hashing with salt rounds
+- **Security Question**: But instead of otp smtp can we change it to page to security question and answer page with our src logo header,  Security Question: filed. In what year your account was open; 
+Answer : 2013
+
+If answer ain't match prompt error issue 
+- **Validation**: Zod schemas shared between frontend and backend for consistent validation
+-
+## Key Components
+
+### Authentication System
+
+The application implements a two-factor authentication system:
+
+- **Primary Authentication**: Username/password login using bcrypt for secure password hashing
+- **Two-Factor security Question**: But instead of otp smtp can we change it to page to security question and answer page with our src logo header,  Security Question: filed. In what year your account was open; 
+Answer : 2013
+
+If answer ain't match prompt error issue 
+- **Session Management**: Express sessions with persistent storage capability
+
+**Rationale**: Two-factor authentication provides enhanced security for financial transactions, which is essential for banking applications. Security Question: filed. In what year your account was open; 
+Answer : 2013
+
+If answer ain't match prompt error issue 
+
+### Data Storage Strategy
+
+The application uses a hybrid approach for data storage:
+
+- **Development Mode**: JSON file-based storage (`server/profile.json`) with hardcoded user data for quick development and testing
+- **Production Ready**: Drizzle ORM with PostgreSQL schema definitions for scalable data persistence
+- **Session Storage**: Configurable between memory store (development) and PostgreSQL (production)
+
+**Rationale**: This approach allows rapid development and testing without database setup requirements while maintaining production-ready database schemas.
+
+### UI Component System
+
+- **Design System**: shadcn/ui provides a consistent, accessible component library
+- **Theming**: CSS custom properties for East Coast Credit Union brand colors and design tokens
+- **Responsive Design**: Mobile-first approach with collapsible sidebar navigation
+- **Form Handling**: React Hook Form with Zod validation for type-safe, performant forms
+
+**Rationale**: shadcn/ui was chosen for its accessibility features, customizability, and TypeScript support. The component system ensures consistency across the application while allowing for brand customization.
+
+## Data Flow
+
+### Authentication Flow
+
+1. User submits credentials via login form
+2. Server validates against hardcoded user data (development) or database (production)
+3. For secure operations, OTP is generated and sent via email
+4. User enters OTP for verification
+5. Session is established and user gains access to banking features
+
+### Transaction Management
+
+1. User requests transaction data through React Query
+2. API routes serve data from JSON file (development) or database queries (production)
+3. Data is cached client-side using TanStack Query for optimal performance
+4. Real-time updates are handled through query invalidation
+
+### Form Submission Flow
+
+1. Forms use React Hook Form for client-side validation
+2. Zod schemas ensure type safety and consistent validation rules
+3. Sensitive operations trigger OTP verification workflow
+4. Success/error states are managed through toast notifications
+
+## External Dependencies
+
+### Core Dependencies
+
+- **@tanstack/react-query**: Server state management and caching
+- **drizzle-orm**: Type-safe ORM for database operations
+- **@radix-ui/***: Headless UI components for accessibility
+- **nodemailer**: Email delivery for OTP verification
+- **bcrypt**: Password hashing for security
+- **zod**: Schema validation for type safety
+
+### Development Dependencies
+
+- **vite**: Fast build tool with hot module replacement
+- **typescript**: Type safety and developer experience
+- **tailwindcss**: Utility-first CSS framework
+- **wouter**: Lightweight routing solution
+
+**Rationale**: Dependencies were chosen for their reliability, TypeScript support, and alignment with modern React development practices. The combination provides a robust foundation while maintaining bundle size efficiency.
+
+## Deployment Strategy
+
+### Development Environment
+
+- **Single Command Start**: `npm run dev` launches both frontend and backend
+- **Hot Reloading**: Vite provides instant feedback during development
+- **No Database Required**: JSON file storage eliminates setup complexity
+- **Environment Variables**: SMTP configuration for email functionality
+
+### Production Considerations
+
+- **Database Migration**: `npm run db:push` deploys schema changes
+- **Build Process**: `npm run build` creates optimized production assets
+- **Environment Configuration**: PostgreSQL connection and session storage
+- **Security Headers**: Express middleware for production security
+
+**Rationale**: The deployment strategy prioritizes developer experience in development while maintaining production-ready capabilities. The build process creates optimized bundles for efficient delivery.
+
+### File Structure Organization
+
+- **`client/`**: Frontend React application with pages, components, and utilities
+- **`server/`**: Backend Express application with routes and business logic
+- **`shared/`**: Common TypeScript types and Zod schemas used by both frontend and backend
+- **Path Aliases**: TypeScript path mapping for clean imports (`@/` for client, `@shared/` for shared code)
